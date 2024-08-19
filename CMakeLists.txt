@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.16.5)
 project(pylca)
 
-set(PYTHON_DIR C:/Users/Jonas/AppData/Local/Programs/Python38/Python)
+set(PYTHON_DIR C:/dev/resources/Python/)
 
 set(Boost_ROOT C:/boost_1_72_0)
 set(Boost_INCLUDE_DIR ${Boost_ROOT})
@@ -10,7 +10,7 @@ set(Boost_LIBRARY_DIR ${Boost_ROOT}/stage/x64)
 set(Boost_DEBUG 1)
 find_package(Boost 1.72.0 COMPONENTS python38 REQUIRED)
 
-set(PYTHON_LIBRARY C:/dev/python/Python38/libs)
+set(PYTHON_LIBRARY C:/dev/resources/Python/libs)
 
 include_directories(${Boost_INCLUDE_DIR})
 link_directories(${Boost_LIBRARY_DIR} ${PYTHON_LIBRARY})
@@ -18,8 +18,7 @@ link_directories(${Boost_LIBRARY_DIR} ${PYTHON_LIBRARY})
 find_package(PythonLibs 3.8 REQUIRED)
 set(PYTHON_LIBRARY ${PYTHON_DIR}/Libs)
 
-set(ARMADILLO_LIBRARY C:/dev/resources/c++/armadillo/examples/lib_win64/lapack_win64_MT.lib
-        C:/dev/resources/c++/armadillo/examples/lib_win64/blas_win64_MT.lib)
+set(ARMADILLO_LIBRARY C:/dev/resources/c++/armadillo/examples/lib_win64/libopenblas.lib)
 set(ARMADILLO_INCLUDE_DIR C:/dev/resources/c++/armadillo/include/)
 find_package(Armadillo REQUIRED)
 
