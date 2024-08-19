@@ -16,6 +16,8 @@ namespace py = boost::python;
 class PyLifeCycleAssessment
 {
 public:
+    PyLifeCycleAssessment();
+
     PyLifeCycleAssessment(py::list &tech_matrix, py::list &emission_matrix, py::list &impact_matrix, py::list &final_demand);
 
     py::list GetTechnologyMatrix();
@@ -36,11 +38,15 @@ public:
 
     void ProcessToProduct();
 
+    void ProductProcess();
+
     void IntensityOfEmission();
 
     void EnvironmentalImpacts();
 
     py::list GetScalingVector();
+
+    py::list GetProductProcesses();
 
     py::list GetEmissionInventoryVector();
 
@@ -52,8 +58,9 @@ private:
 
 BOOST_PYTHON_MODULE (pylca)
 {
-    py::class_<PyLifeCycleAssessment>(
-            "LifeCycleAssessment", py::init<py::list &, py::list &, py::list &, py::list &>())
+    py::class_<PyLifeCycleAssessment>("LifeCycleAssessment")
+            .def(py::init<>())
+            .def(py::init<py::list &, py::list &, py::list &, py::list &>())
             .add_property(
                     "A", &PyLifeCycleAssessment::GetTechnologyMatrix, &PyLifeCycleAssessment::SetTechnologyMatrix)
             .add_property(
@@ -63,15 +70,13 @@ BOOST_PYTHON_MODULE (pylca)
             .add_property(
                     "f", &PyLifeCycleAssessment::GetFinalDemandVector, &PyLifeCycleAssessment::SetFinalDemandVector)
             .add_property("s", &PyLifeCycleAssessment::GetScalingVector)
+            .add_property("p", &PyLifeCycleAssessment::GetProductProcesses)
             .add_property("g", &PyLifeCycleAssessment::GetEmissionInventoryVector)
             .add_property("h", &PyLifeCycleAssessment::GetImpacts)
-            .def("process_to_product",
-                 &PyLifeCycleAssessment::ProcessToProduct)
-            .def("intensity_of_emission",
-                 &PyLifeCycleAssessment::IntensityOfEmission)
-            .def("impacts",
-                 &PyLifeCycleAssessment::EnvironmentalImpacts);
-
+            .def("process_to_product",&PyLifeCycleAssessment::ProcessToProduct)
+            .def("product_processes", &PyLifeCycleAssessment::ProductProcess)
+            .def("intensity_of_emission", &PyLifeCycleAssessment::IntensityOfEmission)
+            .def("impacts", &PyLifeCycleAssessment::EnvironmentalImpacts);
 }
 
 

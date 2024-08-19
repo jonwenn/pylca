@@ -1,12 +1,12 @@
 #include "library.h"
 #include "library_helper.h"
 
+PyLifeCycleAssessment::PyLifeCycleAssessment() = default;
 
 PyLifeCycleAssessment::PyLifeCycleAssessment(
         py::list &tech_matrix, py::list &emission_matrix, py::list &impact_matrix, py::list &final_demand)
         : lca(ListOfListToVector(tech_matrix), ListOfListToVector(emission_matrix), ListOfListToVector(impact_matrix),
               ListToVector(final_demand)) {
-
 }
 
 py::list PyLifeCycleAssessment::GetTechnologyMatrix() {
@@ -48,6 +48,10 @@ void PyLifeCycleAssessment::ProcessToProduct() {
     lca.ProcessToProductionSystem();
 }
 
+void PyLifeCycleAssessment::ProductProcess() {
+    lca.ProductProcesses();
+}
+
 void PyLifeCycleAssessment::IntensityOfEmission() {
     lca.IntensityOfEmission();
 }
@@ -61,6 +65,11 @@ py::list PyLifeCycleAssessment::GetScalingVector() {
     return VectorToList(scaling_vector);
 }
 
+py::list PyLifeCycleAssessment::GetProductProcesses() {
+    StdVecVecDouble product_processes = lca.GetProductProcesses();
+    return VectorOfVectorToList(product_processes);
+}
+
 py::list PyLifeCycleAssessment::GetEmissionInventoryVector() {
     StdVecDouble emission_inventory_vector = lca.GetEmissionInventoryVector();
     return VectorToList(emission_inventory_vector);
@@ -70,3 +79,7 @@ py::list PyLifeCycleAssessment::GetImpacts() {
     StdVecDouble impact_vector = lca.GetImpacts();
     return VectorToList(impact_vector);
 }
+
+
+
+
